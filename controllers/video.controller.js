@@ -6,7 +6,7 @@ const read = async (req, res) => {
         const videos = await model.find()
             .sort({ publishedAt: -1 }) // Sort in reverse chronological order
             // Use limit and skip to implement pagination
-            .limit(parseInt(req.query.limit)) // Limit results to the specified number
+            .limit(req.query.limit ? parseInt(req.query.limit) : 10) // Limit results to the specified number
             .skip(parseInt(req.query.skip)) // Skip the specified number of results
         res.send(videos)
     } catch (e) {
