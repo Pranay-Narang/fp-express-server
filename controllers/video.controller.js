@@ -15,3 +15,17 @@ const read = async (req, res) => {
 }
 
 module.exports.read = read
+
+const search = async (req, res) => {
+    if(!req.query.q) {
+        return res.status(404).send({})
+    }
+    try {
+        const videos = await model.find({ $text: { $search: req.query.q } }) // Search on name and description indexes
+        res.send(videos)
+    } catch (e) {
+        return res.status(404)
+    }
+}
+
+module.exports.search = search
