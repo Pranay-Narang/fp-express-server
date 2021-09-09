@@ -1,5 +1,9 @@
 version: "3.9"
 
+networks: 
+  fp-fetcher:
+    external: true
+
 services:
   app:
     build:
@@ -10,6 +14,8 @@ services:
       DB_URL: db
     depends_on:
       - db
+    networks: 
+      - fp-fetcher
   
   db:
     image: mongo
@@ -18,6 +24,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME:
       MONGO_INITDB_ROOT_PASSWORD:
+    networks: 
+      - fp-fetcher
 
 volumes:
   mongo-data:
